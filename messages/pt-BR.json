@@ -1,0 +1,145 @@
+{
+  "comum": {
+    "acoes": "Ações",
+    "salvar": "Salvar",
+    "salvando": "Salvando...",
+    "cancelar": "Cancelar",
+    "excluir": "Excluir",
+    "excluindo": "Excluindo...",
+    "editar": "Editar",
+    "novo": "Novo",
+    "buscar": "Buscar",
+    "filtros": "Filtros",
+    "limparFiltros": "Limpar filtros",
+    "carregando": "Carregando...",
+    "semResultados": "Nenhum resultado encontrado.",
+    "erroAoCarregar": "Não foi possível carregar os dados.",
+    "tentarNovamente": "Tentar novamente",
+    "confirmarExclusaoTitulo": "Confirmar exclusão",
+    "confirmarExclusaoDescricao": "Essa ação não pode ser desfeita. Deseja continuar?",
+    "sim": "Sim",
+    "nao": "Não",
+    "voltar": "Voltar",
+    "paginaAnteriorAria": "Página anterior",
+    "proximaPaginaAria": "Próxima página",
+    "paginaDe": "Página {page} de {totalPages}",
+    "todos": "Todos",
+    "sair": "Sair",
+    "permissaoNegadaTitulo": "Permissão negada",
+    "permissaoNegadaDescricao": "Você não tem permissão para realizar essa ação."
+  },
+  "auth": {
+    "email": "E-mail",
+    "senha": "Senha",
+    "entrar": "Entrar",
+    "entrando": "Entrando...",
+    "criarConta": "Criar conta",
+    "criandoConta": "Criando conta...",
+    "loginTitulo": "Entrar na plataforma",
+    "loginDescricao": "Acesse sua conta para continuar.",
+    "registroTitulo": "Criar uma conta",
+    "registroDescricao": "Cadastre-se para acessar a plataforma.",
+    "jaTemConta": "Já tem uma conta?",
+    "naoTemConta": "Ainda não tem uma conta?",
+    "sairConfirmacao": "Tem certeza que deseja sair?"
+  },
+  "membros": {
+    "titulo": "Membros",
+    "novoMembro": "Novo membro",
+    "editarMembro": "Editar membro",
+    "fullName": "Nome completo",
+    "cpf": "CPF",
+    "birthDate": "Data de nascimento",
+    "phone": "Telefone",
+    "address": "Endereço",
+    "memberType": "Tipo",
+    "memberStatus": "Situação",
+    "joinedAt": "Data de ingresso",
+    "baptized": "Batizado",
+    "family": "Família",
+    "semFamilia": "Sem família",
+    "buscarPlaceholder": "Buscar por nome...",
+    "memberTypeMEMBER": "Membro",
+    "memberTypeCONGREGANT": "Congregado",
+    "memberTypeVISITOR": "Visitante",
+    "memberStatusACTIVE": "Ativo",
+    "memberStatusINACTIVE": "Inativo",
+    "memberStatusTRANSFERRED": "Transferido"
+  },
+  "familias": {
+    "titulo": "Famílias",
+    "novaFamilia": "Nova família",
+    "editarFamilia": "Editar família",
+    "name": "Nome",
+    "createdAt": "Criada em",
+    "buscarPlaceholder": "Buscar por nome..."
+  },
+  "ministerios": {
+    "titulo": "Ministérios",
+    "novoMinisterio": "Novo ministério",
+    "editarMinisterio": "Editar ministério",
+    "name": "Nome",
+    "leader": "Líder",
+    "semLider": "Sem líder",
+    "description": "Descrição",
+    "buscarPlaceholder": "Buscar por nome...",
+    "participantes": "Participantes",
+    "adicionarParticipante": "Adicionar participante",
+    "membro": "Membro",
+    "papel": "Papel",
+    "papelLEADER": "Líder",
+    "papelMEMBER": "Membro",
+    "joinedAt": "Desde"
+  },
+  "validacao": {
+    "campoObrigatorio": "Campo obrigatório.",
+    "emailInvalido": "Informe um e-mail válido.",
+    "senhaMinima": "A senha deve ter pelo menos 6 caracteres.",
+    "cpfInvalido": "CPF deve ter 11 dígitos.",
+    "dataInvalida": "Informe uma data válida.",
+    "valorInvalido": "Valor inválido."
+  },
+  "erros": {
+    "USER": {
+      "EMAIL_ALREADY_EXISTS": "Este e-mail já está cadastrado.",
+      "INVALID_CREDENTIALS": "E-mail ou senha inválidos.",
+      "INVALID_EMAIL": "E-mail inválido.",
+      "INVALID_PASSWORD": "Senha inválida."
+    },
+    "AUTH": {
+      "INVALID_REFRESH_TOKEN": "Sua sessão expirou. Faça login novamente."
+    },
+    "UNAUTHORIZED": "Você precisa entrar novamente para continuar.",
+    "FORBIDDEN": "Você não tem permissão para realizar essa ação.",
+    "NOT_FOUND": "Registro não encontrado.",
+    "VALIDATION_ERROR": "Verifique os dados informados.",
+    "INTERNAL_ERROR": "Ocorreu um erro inesperado. Tente novamente.",
+    "MEMBER": {
+      "INVALID_FULL_NAME": "Nome completo inválido.",
+      "INVALID_BIRTH_DATE": "Data de nascimento inválida.",
+      "INVALID_CPF": "CPF inválido.",
+      "CPF_ALREADY_EXISTS": "Já existe um membro com esse CPF.",
+      "INVALID_REFERENCE": "Família ou usuário vinculado inválido.",
+      "INVALID_STATE": "Situação do membro inválida."
+    },
+    "FAMILY": {
+      "INVALID_NAME": "Nome da família inválido.",
+      "INVALID_STATE": "Situação da família inválida."
+    },
+    "MINISTRY": {
+      "INVALID_NAME": "Nome do ministério inválido.",
+      "NAME_ALREADY_EXISTS": "Já existe um ministério com esse nome.",
+      "INVALID_LEADER": "Líder selecionado é inválido.",
+      "INVALID_STATE": "Situação do ministério inválida."
+    },
+    "MEMBER_MINISTRY": {
+      "ALREADY_PARTICIPATING": "Este membro já participa deste ministério.",
+      "INVALID_REFERENCE": "Membro ou ministério inválido.",
+      "INVALID_STATE": "Participação inválida."
+    },
+    "REFRESH_TOKEN": {
+      "INVALID_STATE": "Sessão inválida. Faça login novamente."
+    },
+    "padrao": "Ocorreu um erro. Tente novamente."
+  }
+}
