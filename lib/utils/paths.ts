@@ -2,6 +2,8 @@ export const paths = {
   login: "/login",
   register: "/registro",
   home: "/membros",
+  terms: "/termos",
+  privacy: "/privacidade",
   members: {
     list: "/membros",
     new: "/membros/novo",
