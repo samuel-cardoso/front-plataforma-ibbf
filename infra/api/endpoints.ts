@@ -11,6 +11,8 @@ export const endpoints = {
   getSession: authService.getSession,
   forgotPassword: authService.forgotPassword,
   resetPassword: authService.resetPassword,
+  verifyEmail: authService.verifyEmail,
+  resendVerification: authService.resendVerification,
 
   listMembers: memberService.list,
   getMember: memberService.get,

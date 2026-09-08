@@ -6,6 +6,7 @@ export const paths = {
   privacy: "/privacidade",
   forgotPassword: "/esqueci-senha",
   resetPassword: "/redefinir-senha",
+  confirmEmail: "/confirmar-email",
   members: {
     list: "/membros",
     new: "/membros/novo",

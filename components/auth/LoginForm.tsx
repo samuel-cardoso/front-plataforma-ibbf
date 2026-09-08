@@ -26,8 +26,12 @@ export function LoginForm() {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      await login(data);
-      router.push(paths.home);
+      const user = await login(data);
+      if (user.emailVerifiedAt === null) {
+        router.push(`${paths.confirmEmail}?email=${encodeURIComponent(user.email)}`);
+      } else {
+        router.push(paths.home);
+      }
     } catch (error) {
       toast.error(getAxiosErrorMessage(error));
     }

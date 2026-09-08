@@ -26,8 +26,12 @@ export function RegisterForm() {
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
-      await registerUser(data);
-      router.push(paths.home);
+      const user = await registerUser(data);
+      if (user.emailVerifiedAt === null) {
+        router.push(`${paths.confirmEmail}?email=${encodeURIComponent(user.email)}`);
+      } else {
+        router.push(paths.home);
+      }
     } catch (error) {
       toast.error(getAxiosErrorMessage(error));
     }

@@ -4,6 +4,8 @@ export * from "./useRegister";
 export * from "./useLogout";
 export * from "./useForgotPassword";
 export * from "./useResetPassword";
+export * from "./useVerifyEmail";
+export * from "./useResendVerification";
 export * from "./useMembers";
 export * from "./useFamilies";
 export * from "./useMinistries";

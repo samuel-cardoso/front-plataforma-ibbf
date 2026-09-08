@@ -43,3 +43,15 @@ export const resetPasswordFormSchema = (t: ValidationT) =>
     });
 
 export type ResetPasswordFormData = z.infer<ReturnType<typeof resetPasswordFormSchema>>;
+
+export const verifyEmailFormSchema = (t: ValidationT) =>
+  z.object({
+    email: z.string().trim().min(1, t("campoObrigatorio")).email(t("emailInvalido")),
+    code: z
+      .string()
+      .trim()
+      .min(1, t("campoObrigatorio"))
+      .regex(/^\d{6}$/, t("codigoInvalido")),
+  });
+
+export type VerifyEmailFormData = z.infer<ReturnType<typeof verifyEmailFormSchema>>;
