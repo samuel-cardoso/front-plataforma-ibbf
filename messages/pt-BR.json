@@ -41,7 +41,14 @@
     "registroDescricao": "Cadastre-se para acessar a plataforma.",
     "jaTemConta": "Já tem uma conta?",
     "naoTemConta": "Ainda não tem uma conta?",
-    "sairConfirmacao": "Tem certeza que deseja sair?"
+    "sairConfirmacao": "Tem certeza que deseja sair?",
+    "esqueceuSenha": "Esqueceu sua senha?",
+    "mostrarSenha": "Mostrar senha",
+    "ocultarSenha": "Ocultar senha",
+    "aoContinuarPrefixo": "Ao continuar, você concorda com nossos",
+    "termosDeUso": "Termos de Uso",
+    "e": "e",
+    "politicaDePrivacidade": "Política de Privacidade"
   },
   "membros": {
     "titulo": "Membros",
