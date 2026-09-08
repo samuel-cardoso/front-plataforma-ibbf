@@ -4,6 +4,8 @@ export const paths = {
   home: "/membros",
   terms: "/termos",
   privacy: "/privacidade",
+  forgotPassword: "/esqueci-senha",
+  resetPassword: "/redefinir-senha",
   members: {
     list: "/membros",
     new: "/membros/novo",

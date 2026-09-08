@@ -48,7 +48,21 @@
     "aoContinuarPrefixo": "Ao continuar, você concorda com nossos",
     "termosDeUso": "Termos de Uso",
     "e": "e",
-    "politicaDePrivacidade": "Política de Privacidade"
+    "politicaDePrivacidade": "Política de Privacidade",
+    "esqueciSenhaTitulo": "Esqueceu sua senha?",
+    "esqueciSenhaDescricao": "Informe seu e-mail e enviaremos um código para redefinir sua senha.",
+    "enviarCodigo": "Enviar código",
+    "enviando": "Enviando...",
+    "codigoEnviado": "Se o e-mail estiver cadastrado, um código de redefinição foi enviado.",
+    "redefinirSenhaTitulo": "Redefinir senha",
+    "redefinirSenhaDescricao": "Informe o código recebido por e-mail e escolha uma nova senha.",
+    "codigo": "Código de verificação",
+    "novaSenha": "Nova senha",
+    "confirmarSenha": "Confirmar nova senha",
+    "redefinirSenha": "Redefinir senha",
+    "redefinindo": "Redefinindo...",
+    "senhaRedefinida": "Senha redefinida com sucesso. Faça login com sua nova senha.",
+    "voltarParaLogin": "Voltar para o login"
   },
   "membros": {
     "titulo": "Membros",
@@ -157,7 +171,9 @@
     "senhaMinima": "A senha deve ter pelo menos 6 caracteres.",
     "cpfInvalido": "CPF deve ter 11 dígitos.",
     "dataInvalida": "Informe uma data válida.",
-    "valorInvalido": "Valor inválido."
+    "valorInvalido": "Valor inválido.",
+    "codigoInvalido": "Informe o código de 6 dígitos.",
+    "senhasNaoConferem": "As senhas não coincidem."
   },
   "erros": {
     "USER": {
@@ -167,7 +183,8 @@
       "INVALID_PASSWORD": "Senha inválida."
     },
     "AUTH": {
-      "INVALID_REFRESH_TOKEN": "Sua sessão expirou. Faça login novamente."
+      "INVALID_REFRESH_TOKEN": "Sua sessão expirou. Faça login novamente.",
+      "INVALID_RESET_CODE": "Código inválido ou expirado."
     },
     "UNAUTHORIZED": "Você precisa entrar novamente para continuar.",
     "FORBIDDEN": "Você não tem permissão para realizar essa ação.",

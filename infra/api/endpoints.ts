@@ -9,6 +9,8 @@ export const endpoints = {
   register: authService.register,
   logout: authService.logout,
   getSession: authService.getSession,
+  forgotPassword: authService.forgotPassword,
+  resetPassword: authService.resetPassword,
 
   listMembers: memberService.list,
   getMember: memberService.get,

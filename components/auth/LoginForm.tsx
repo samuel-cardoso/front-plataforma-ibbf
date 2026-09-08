@@ -51,9 +51,12 @@ export function LoginForm() {
               <Field data-invalid={!!formState.errors.password}>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">{t("senha")}</FieldLabel>
-                  <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
+                  <Link
+                    href={paths.forgotPassword}
+                    className="ml-auto text-sm underline-offset-4 hover:underline"
+                  >
                     {t("esqueceuSenha")}
-                  </a>
+                  </Link>
                 </div>
                 <InputGroup>
                   <InputGroupInput

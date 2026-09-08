@@ -1,5 +1,12 @@
 import { bffApi } from "@/infra/api/config/bff-api.config";
-import type { AuthUser, LoginCredentials, RegisterCredentials, SessionUser } from "@/lib/types/authTypes";
+import type {
+  AuthUser,
+  ForgotPasswordCredentials,
+  LoginCredentials,
+  RegisterCredentials,
+  ResetPasswordCredentials,
+  SessionUser,
+} from "@/lib/types/authTypes";
 
 export const authService = {
   login: async (credentials: LoginCredentials) => {
@@ -20,6 +27,14 @@ export const authService = {
 
   logout: async () => {
     await bffApi.post("/auth/logout");
+  },
+
+  forgotPassword: async (credentials: ForgotPasswordCredentials) => {
+    await bffApi.post("/auth/forgot-password", credentials);
+  },
+
+  resetPassword: async (credentials: ResetPasswordCredentials) => {
+    await bffApi.post("/auth/reset-password", credentials);
   },
 
   getSession: async () => {

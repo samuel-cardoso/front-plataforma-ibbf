@@ -25,3 +25,13 @@ export type RegisterCredentials = {
   email: string;
   password: string;
 };
+
+export type ForgotPasswordCredentials = {
+  email: string;
+};
+
+export type ResetPasswordCredentials = {
+  email: string;
+  code: string;
+  newPassword: string;
+};
