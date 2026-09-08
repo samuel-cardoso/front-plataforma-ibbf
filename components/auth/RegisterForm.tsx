@@ -71,7 +71,7 @@ export function RegisterForm() {
                 <FieldError errors={[formState.errors.password]} />
               </Field>
               <Field>
-                <Button type="submit" disabled={isRegistering}>
+                <Button type="submit" loading={isRegistering}>
                   {isRegistering ? t("criandoConta") : t("criarConta")}
                 </Button>
                 <FieldDescription className="text-center">

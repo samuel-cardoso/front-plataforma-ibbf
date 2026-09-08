@@ -76,7 +76,7 @@ export function LoginForm() {
                 <FieldError errors={[formState.errors.password]} />
               </Field>
               <Field>
-                <Button type="submit" disabled={isLoggingIn}>
+                <Button type="submit" loading={isLoggingIn}>
                   {isLoggingIn ? t("entrando") : t("entrar")}
                 </Button>
                 <FieldDescription className="text-center">

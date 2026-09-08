@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getAxiosErrorMessage } from "@/lib/utils/api/getAxiosErrorMessage";
+import { paths } from "@/lib/utils/paths";
 import { usePermissionStore } from "@/stores/permissionStore";
 
 /**
@@ -28,12 +29,11 @@ bffApi.interceptors.response.use(
     if (
       typeof window !== "undefined" &&
       error?.response?.status === 401 &&
-      window.location.pathname !== "/login"
+      window.location.pathname !== paths.login
     ) {
       // Navegação forçada (não router.push): estamos fora de React (interceptor Axios) e
       // queremos um reload completo para descartar todo estado em memória de uma sessão morta.
-      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-      window.location.href = "/login";
+      window.location.href = paths.login;
     }
 
     return Promise.reject(error);
