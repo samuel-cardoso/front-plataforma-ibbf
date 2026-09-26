@@ -23,8 +23,19 @@ const crimsonText = Crimson_Text({
 });
 
 export const metadata: Metadata = {
-  title: "Plataforma IBBF",
+  title: {
+    default: "Plataforma IBBF",
+    template: "%s · Plataforma IBBF",
+  },
   description: "Gestão de membros da Plataforma IBBF",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon.png", sizes: "120x120", type: "image/png" },
+    ],
+    apple: [{ url: "/icon.png", sizes: "120x120", type: "image/png" }],
+    shortcut: "/favicon.ico",
+  },
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
