@@ -6,6 +6,7 @@ import { Users, House, HeartHandshake } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -15,9 +16,11 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { paths } from "@/lib/utils/paths";
+import { SidebarFooterMenu } from "./SidebarFooterMenu";
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const tComum = useTranslations("comum");
   const tMembros = useTranslations("membros");
   const tFamilias = useTranslations("familias");
   const tMinisterios = useTranslations("ministerios");
@@ -29,19 +32,49 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" variant="inset">
       <SidebarHeader>
-        <span className="px-2 py-1.5 text-sm font-semibold">Plataforma IBBF</span>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              size="lg"
+              className="h-auto py-3 group-data-[collapsible=icon]:h-20! group-data-[collapsible=icon]:w-8! group-data-[collapsible=icon]:justify-center"
+              render={
+                <Link href={paths.members.list}>
+                  <img
+                    src="/logo-igreja.png"
+                    alt="Plataforma IBBF"
+                    className="h-20 w-auto shrink-0 object-contain group-data-[collapsible=icon]:h-16 dark:hidden"
+                  />
+                  <img
+                    src="/logo-igreja-branca.png"
+                    alt="Plataforma IBBF"
+                    className="hidden h-20 w-auto shrink-0 object-contain group-data-[collapsible=icon]:h-16 dark:block"
+                  />
+                  <span className="flex min-w-0 flex-col leading-tight group-data-[collapsible=icon]:hidden">
+                    <span className="font-heading truncate text-sm font-bold text-sidebar-foreground">
+                      {tComum("nomeIgrejaLinha1")}
+                    </span>
+                    <span className="font-heading truncate text-xs text-sidebar-foreground/70">
+                      {tComum("nomeIgrejaLinha2")}
+                    </span>
+                  </span>
+                </Link>
+              }
+            />
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navegação</SidebarGroupLabel>
+          <SidebarGroupLabel>{tComum("navegacao")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
                     isActive={pathname.startsWith(item.href)}
+                    tooltip={item.label}
                     render={
                       <Link href={item.href}>
                         <item.icon />
@@ -55,6 +88,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarFooterMenu />
+      </SidebarFooter>
     </Sidebar>
   );
 }
