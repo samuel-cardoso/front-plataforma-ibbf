@@ -75,6 +75,7 @@ export function FormField<TFieldValues extends FieldValues>({
               value={field.value ?? undefined}
               onValueChange={field.onChange}
               disabled={disabled}
+              items={options}
             >
               <SelectTrigger id={name} className="w-full" aria-invalid={!!fieldState.error}>
                 <SelectValue placeholder={placeholder} />

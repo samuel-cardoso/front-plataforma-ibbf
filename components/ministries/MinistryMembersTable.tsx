@@ -37,6 +37,8 @@ export function MinistryMembersTable({ ministryId, participations }: MinistryMem
   const { removeMember, isRemoving } = useRemoveMinistryMember(ministryId);
   const [removingMemberId, setRemovingMemberId] = useState<string | null>(null);
 
+  const roleItems = MINISTRY_ROLE_VALUES.map((role) => ({ value: role, label: t(`papel${role}`) }));
+
   const handleRoleChange = async (memberId: string, role: string | null) => {
     if (!role) return;
     try {
@@ -79,6 +81,7 @@ export function MinistryMembersTable({ ministryId, participations }: MinistryMem
                     value={participation.role}
                     onValueChange={(value) => handleRoleChange(participation.memberId, value)}
                     disabled={isUpdatingRole}
+                    items={roleItems}
                   >
                     <SelectTrigger className="w-32">
                       <SelectValue />

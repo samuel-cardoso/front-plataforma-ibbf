@@ -10,6 +10,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Search, Filter, FilterX } from "lucide-react";
 import { MEMBER_STATUS_VALUES, MEMBER_TYPE_VALUES, EMPTY_MEMBER_FILTERS } from "@/lib/consts/member";
 
 export type MembersFiltersState = typeof EMPTY_MEMBER_FILTERS;
@@ -22,7 +25,7 @@ type MembersFiltersProps = {
 export function MembersFilters({ filters, onChange }: MembersFiltersProps) {
   const t = useTranslations("membros");
   const tComum = useTranslations("comum");
-  const { families } = useFamilies({ limit: 100 });
+  const { families, isLoading: isLoadingFamilies } = useFamilies({ limit: 100 });
 
   const [searchText, setSearchText] = useState(filters.search);
   const debouncedSearch = useDebounce(searchText, 400);
@@ -34,6 +37,20 @@ export function MembersFilters({ filters, onChange }: MembersFiltersProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch]);
 
+  const hasActiveFilters = Boolean(
+    searchText || filters.memberType || filters.memberStatus || filters.familyId
+  );
+
+  const memberTypeItems = MEMBER_TYPE_VALUES.map((value) => ({
+    value,
+    label: t(`memberType${value}`),
+  }));
+  const memberStatusItems = MEMBER_STATUS_VALUES.map((value) => ({
+    value,
+    label: t(`memberStatus${value}`),
+  }));
+  const familyItems = families.map((family) => ({ value: family.id, label: family.name }));
+
   const handleClear = () => {
     setSearchText("");
     onChange(EMPTY_MEMBER_FILTERS);
@@ -41,24 +58,27 @@ export function MembersFilters({ filters, onChange }: MembersFiltersProps) {
 
   return (
     <div className="flex flex-wrap items-end gap-3">
-      <Input
-        className="w-56"
-        placeholder={t("buscarPlaceholder")}
-        value={searchText}
-        onChange={(event) => setSearchText(event.target.value)}
-      />
+      <div className="relative">
+        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+        <Input
+          className="w-56 pl-9"
+          placeholder={t("buscarPlaceholder")}
+          value={searchText}
+          onChange={(event) => setSearchText(event.target.value)}
+        />
+      </div>
 
       <Select
-        value={filters.memberType || "all"}
-        onValueChange={(value) =>
-          onChange({ ...filters, memberType: !value || value === "all" ? "" : value })
-        }
+        value={filters.memberType}
+        onValueChange={(value) => onChange({ ...filters, memberType: value ?? "" })}
+        items={memberTypeItems}
       >
         <SelectTrigger className="w-40">
-          <SelectValue placeholder={t("memberType")} />
+          <SelectValue
+            placeholder={tComum("filtrarPor", { campo: t("memberType").toLowerCase() })}
+          />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">{tComum("todos")}</SelectItem>
           {MEMBER_TYPE_VALUES.map((value) => (
             <SelectItem key={value} value={value}>
               {t(`memberType${value}`)}
@@ -68,16 +88,16 @@ export function MembersFilters({ filters, onChange }: MembersFiltersProps) {
       </Select>
 
       <Select
-        value={filters.memberStatus || "all"}
-        onValueChange={(value) =>
-          onChange({ ...filters, memberStatus: !value || value === "all" ? "" : value })
-        }
+        value={filters.memberStatus}
+        onValueChange={(value) => onChange({ ...filters, memberStatus: value ?? "" })}
+        items={memberStatusItems}
       >
         <SelectTrigger className="w-40">
-          <SelectValue placeholder={t("memberStatus")} />
+          <SelectValue
+            placeholder={tComum("filtrarPor", { campo: t("memberStatus").toLowerCase() })}
+          />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">{tComum("todos")}</SelectItem>
           {MEMBER_STATUS_VALUES.map((value) => (
             <SelectItem key={value} value={value}>
               {t(`memberStatus${value}`)}
@@ -86,28 +106,46 @@ export function MembersFilters({ filters, onChange }: MembersFiltersProps) {
         </SelectContent>
       </Select>
 
-      <Select
-        value={filters.familyId || "all"}
-        onValueChange={(value) =>
-          onChange({ ...filters, familyId: !value || value === "all" ? "" : value })
-        }
-      >
-        <SelectTrigger className="w-48">
-          <SelectValue placeholder={t("family")} />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">{tComum("todos")}</SelectItem>
-          {families.map((family) => (
-            <SelectItem key={family.id} value={family.id}>
-              {family.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      {isLoadingFamilies ? (
+        <Skeleton className="h-9 w-48" />
+      ) : (
+        <Select
+          value={filters.familyId}
+          onValueChange={(value) => onChange({ ...filters, familyId: value ?? "" })}
+          items={familyItems}
+        >
+          <SelectTrigger className="w-48">
+            <SelectValue
+              placeholder={tComum("filtrarPor", { campo: t("family").toLowerCase() })}
+            />
+          </SelectTrigger>
+          <SelectContent>
+            {families.map((family) => (
+              <SelectItem key={family.id} value={family.id}>
+                {family.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
 
-      <Button type="button" variant="ghost" size="sm" onClick={handleClear}>
-        {tComum("limparFiltros")}
-      </Button>
+      <Tooltip>
+        <TooltipTrigger
+          render={
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              disabled={!hasActiveFilters}
+              onClick={handleClear}
+              aria-label={tComum("limparFiltros")}
+            >
+              {hasActiveFilters ? <FilterX /> : <Filter />}
+            </Button>
+          }
+        />
+        <TooltipContent>{tComum("limparFiltros")}</TooltipContent>
+      </Tooltip>
     </div>
   );
 }
