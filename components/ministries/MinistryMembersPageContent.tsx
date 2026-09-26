@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useState, useTranslations, useMinistry, useMinistryMembers, usePagination, usePermissions } from "@/hooks";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { EmptyState, DataLoadErrorState, Pagination } from "@/components/shared";
+import { EmptyState, DataLoadErrorState, Pagination, TableSkeleton } from "@/components/shared";
 import { MinistryMembersTable } from "./MinistryMembersTable";
 import { MinistryMemberAddForm } from "./MinistryMemberAddForm";
 import { MINISTRY_PAGE_SIZE } from "@/lib/consts/ministry";
@@ -51,7 +50,7 @@ export function MinistryMembersPageContent({ ministryId }: MinistryMembersPageCo
         )}
       </div>
 
-      {isLoading && <Skeleton className="h-64 w-full" />}
+      {isLoading && <TableSkeleton columns={canManage ? 4 : 3} />}
       {!isLoading && isError && <DataLoadErrorState onRetry={refetch} />}
       {!isLoading && !isError && participations.length === 0 && (
         <EmptyState message={tComum("semResultados")} />

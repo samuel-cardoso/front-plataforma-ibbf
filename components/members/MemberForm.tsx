@@ -3,6 +3,7 @@
 import type { Control } from "react-hook-form";
 import { useTranslations, useFamilies } from "@/hooks";
 import { FormSection, FormGrid, FormField, FormActions } from "@/components/shared/form";
+import { Skeleton } from "@/components/ui/skeleton";
 import { MEMBER_STATUS_VALUES, MEMBER_TYPE_VALUES } from "@/lib/consts/member";
 import type { MemberFormData } from "@/lib/zod/schemas/memberFormSchema";
 
@@ -14,7 +15,7 @@ type MemberFormProps = {
 
 export function MemberForm({ control, onCancel, isSubmitting }: MemberFormProps) {
   const t = useTranslations("membros");
-  const { families } = useFamilies({ limit: 100 });
+  const { families, isLoading: isLoadingFamilies } = useFamilies({ limit: 100 });
 
   const memberTypeOptions = MEMBER_TYPE_VALUES.map((value) => ({
     value,
@@ -31,7 +32,7 @@ export function MemberForm({ control, onCancel, isSubmitting }: MemberFormProps)
 
   return (
     <div className="flex flex-col gap-6">
-      <FormSection title={t("titulo")}>
+      <FormSection>
         <FormGrid columns={2}>
           <FormField control={control} name="fullName" label={t("fullName")} />
           <FormField control={control} name="cpf" label={t("cpf")} placeholder="000.000.000-00" />
@@ -53,13 +54,20 @@ export function MemberForm({ control, onCancel, isSubmitting }: MemberFormProps)
             options={memberStatusOptions}
           />
           <FormField control={control} name="joinedAt" label={t("joinedAt")} type="date" />
-          <FormField
-            control={control}
-            name="familyId"
-            label={t("family")}
-            type="select"
-            options={familyOptions}
-          />
+          {isLoadingFamilies ? (
+            <div className="flex flex-col gap-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-9 w-full" />
+            </div>
+          ) : (
+            <FormField
+              control={control}
+              name="familyId"
+              label={t("family")}
+              type="select"
+              options={familyOptions}
+            />
+          )}
         </FormGrid>
         <FormField control={control} name="baptized" label={t("baptized")} type="checkbox" />
       </FormSection>

@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { FormField, FormActions } from "@/components/shared/form";
+import { Skeleton } from "@/components/ui/skeleton";
 import { MINISTRY_ROLE_VALUES } from "@/lib/consts/ministry";
 import { getAxiosErrorMessage } from "@/lib/utils/api/getAxiosErrorMessage";
 import { scrollToFirstError } from "@/lib/utils/validation/scrollToFirstError";
@@ -29,7 +30,7 @@ type MinistryMemberAddFormProps = {
 export function MinistryMemberAddForm({ ministryId, open, onOpenChange }: MinistryMemberAddFormProps) {
   const t = useTranslations("ministerios");
   const tValidation = useTranslations("validacao");
-  const { members } = useMembers({ limit: 100 });
+  const { members, isLoading: isLoadingMembers } = useMembers({ limit: 100 });
   const { addMember, isAdding } = useAddMinistryMember(ministryId);
   const { control, handleSubmit, reset } = useMinistryMemberForm(tValidation);
 
@@ -53,13 +54,20 @@ export function MinistryMemberAddForm({ ministryId, open, onOpenChange }: Minist
           <DialogTitle>{t("adicionarParticipante")}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit, scrollToFirstError)} className="flex flex-col gap-4">
-          <FormField
-            control={control}
-            name="memberId"
-            label={t("membro")}
-            type="select"
-            options={memberOptions}
-          />
+          {isLoadingMembers ? (
+            <div className="flex flex-col gap-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-9 w-full" />
+            </div>
+          ) : (
+            <FormField
+              control={control}
+              name="memberId"
+              label={t("membro")}
+              type="select"
+              options={memberOptions}
+            />
+          )}
           <FormField
             control={control}
             name="role"

@@ -1,8 +1,8 @@
 "use client";
 
 import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
 import { DataLoadErrorState } from "@/components/shared/error-state";
+import { FormSkeleton } from "@/components/shared/form-skeleton";
 import { useRouter, useTranslations, useMinistry, useMinistryForm, useUpdateMinistry } from "@/hooks";
 import { MinistryForm } from "./MinistryForm";
 import { paths } from "@/lib/utils/paths";
@@ -16,7 +16,7 @@ type MinistryFormEditProps = { ministryId: string };
 export function MinistryFormEdit({ ministryId }: MinistryFormEditProps) {
   const { ministry, isLoading, isError } = useMinistry(ministryId);
 
-  if (isLoading) return <Skeleton className="h-64 w-full" />;
+  if (isLoading) return <FormSkeleton fields={3} columns={2} />;
   if (isError || !ministry) return <DataLoadErrorState />;
 
   return <MinistryEditFormContent ministry={ministry} />;

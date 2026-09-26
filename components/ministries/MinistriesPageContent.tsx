@@ -14,12 +14,11 @@ import {
 } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
-import { EmptyState, DataLoadErrorState, Pagination } from "@/components/shared";
+import { Search } from "lucide-react";
+import { EmptyState, DataLoadErrorState, Pagination, TableSkeleton } from "@/components/shared";
 import { MinistriesTable } from "./MinistriesTable";
 import { MINISTRY_PAGE_SIZE } from "@/lib/consts/ministry";
 import { paths } from "@/lib/utils/paths";
-import { Plus } from "lucide-react";
 
 export function MinistriesPageContent() {
   const t = useTranslations("ministerios");
@@ -49,28 +48,29 @@ export function MinistriesPageContent() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">{t("titulo")}</h1>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="relative">
+          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            className="w-56 pl-9"
+            placeholder={t("buscarPlaceholder")}
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
+          />
+        </div>
         {canManage && (
           <Button
             nativeButton={false}
             render={
               <Link href={paths.ministries.new}>
-                <Plus /> {t("novoMinisterio")}
+                {t("novoMinisterio")}
               </Link>
             }
           />
         )}
       </div>
 
-      <Input
-        className="w-56"
-        placeholder={t("buscarPlaceholder")}
-        value={searchText}
-        onChange={(event) => setSearchText(event.target.value)}
-      />
-
-      {isLoading && <Skeleton className="h-64 w-full" />}
+      {isLoading && <TableSkeleton columns={3} />}
       {!isLoading && isError && <DataLoadErrorState onRetry={refetch} />}
       {!isLoading && !isError && ministries.length === 0 && (
         <EmptyState message={tComum("semResultados")} />

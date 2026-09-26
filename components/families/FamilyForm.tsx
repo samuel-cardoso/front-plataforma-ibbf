@@ -16,7 +16,7 @@ export function FamilyForm({ control, onCancel, isSubmitting }: FamilyFormProps)
 
   return (
     <div className="flex flex-col gap-6">
-      <FormSection title={t("titulo")}>
+      <FormSection>
         <FormGrid columns={1}>
           <FormField control={control} name="name" label={t("name")} />
         </FormGrid>

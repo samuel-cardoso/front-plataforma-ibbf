@@ -3,13 +3,11 @@
 import Link from "next/link";
 import { useMemo, useState, useTranslations, useMembers, useFamilies, usePagination, usePermissions } from "@/hooks";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { EmptyState, DataLoadErrorState, Pagination } from "@/components/shared";
+import { EmptyState, DataLoadErrorState, Pagination, TableSkeleton } from "@/components/shared";
 import { MembersFilters, type MembersFiltersState } from "./MembersFilters";
 import { MembersTable } from "./MembersTable";
 import { EMPTY_MEMBER_FILTERS, MEMBER_PAGE_SIZE } from "@/lib/consts/member";
 import { paths } from "@/lib/utils/paths";
-import { Plus } from "lucide-react";
 
 export function MembersPageContent() {
   const t = useTranslations("membros");
@@ -40,23 +38,21 @@ export function MembersPageContent() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">{t("titulo")}</h1>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <MembersFilters filters={filters} onChange={handleFiltersChange} />
         {canManage && (
           <Button
             nativeButton={false}
             render={
               <Link href={paths.members.new}>
-                <Plus /> {t("novoMembro")}
+                {t("novoMembro")}
               </Link>
             }
           />
         )}
       </div>
 
-      <MembersFilters filters={filters} onChange={handleFiltersChange} />
-
-      {isLoading && <Skeleton className="h-64 w-full" />}
+      {isLoading && <TableSkeleton columns={canManage ? 5 : 4} />}
       {!isLoading && isError && <DataLoadErrorState onRetry={refetch} />}
       {!isLoading && !isError && members.length === 0 && <EmptyState message={tComum("semResultados")} />}
       {!isLoading && !isError && members.length > 0 && (

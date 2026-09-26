@@ -1,8 +1,8 @@
 "use client";
 
 import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
 import { DataLoadErrorState } from "@/components/shared/error-state";
+import { FormSkeleton } from "@/components/shared/form-skeleton";
 import { useRouter, useTranslations, useMember, useMemberForm, useUpdateMember } from "@/hooks";
 import { MemberForm } from "./MemberForm";
 import { paths } from "@/lib/utils/paths";
@@ -16,7 +16,7 @@ type MemberFormEditProps = { memberId: string };
 export function MemberFormEdit({ memberId }: MemberFormEditProps) {
   const { member, isLoading, isError } = useMember(memberId);
 
-  if (isLoading) return <Skeleton className="h-96 w-full" />;
+  if (isLoading) return <FormSkeleton fields={10} columns={2} />;
   if (isError || !member) return <DataLoadErrorState />;
 
   return <MemberEditFormContent member={member} />;

@@ -3,6 +3,7 @@
 import type { Control } from "react-hook-form";
 import { useTranslations, useMembers } from "@/hooks";
 import { FormSection, FormGrid, FormField, FormActions } from "@/components/shared/form";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { MinistryFormData } from "@/lib/zod/schemas/ministryFormSchema";
 
 type MinistryFormProps = {
@@ -13,7 +14,7 @@ type MinistryFormProps = {
 
 export function MinistryForm({ control, onCancel, isSubmitting }: MinistryFormProps) {
   const t = useTranslations("ministerios");
-  const { members } = useMembers({ limit: 100 });
+  const { members, isLoading: isLoadingMembers } = useMembers({ limit: 100 });
 
   const leaderOptions = [
     { value: "none", label: t("semLider") },
@@ -22,16 +23,23 @@ export function MinistryForm({ control, onCancel, isSubmitting }: MinistryFormPr
 
   return (
     <div className="flex flex-col gap-6">
-      <FormSection title={t("titulo")}>
+      <FormSection>
         <FormGrid columns={2}>
           <FormField control={control} name="name" label={t("name")} />
-          <FormField
-            control={control}
-            name="leaderId"
-            label={t("leader")}
-            type="select"
-            options={leaderOptions}
-          />
+          {isLoadingMembers ? (
+            <div className="flex flex-col gap-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-9 w-full" />
+            </div>
+          ) : (
+            <FormField
+              control={control}
+              name="leaderId"
+              label={t("leader")}
+              type="select"
+              options={leaderOptions}
+            />
+          )}
         </FormGrid>
         <FormField control={control} name="description" label={t("description")} type="textarea" />
       </FormSection>

@@ -1,8 +1,8 @@
 "use client";
 
 import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
 import { DataLoadErrorState } from "@/components/shared/error-state";
+import { FormSkeleton } from "@/components/shared/form-skeleton";
 import { useRouter, useTranslations, useFamily, useFamilyForm, useUpdateFamily } from "@/hooks";
 import { FamilyForm } from "./FamilyForm";
 import { paths } from "@/lib/utils/paths";
@@ -16,7 +16,7 @@ type FamilyFormEditProps = { familyId: string };
 export function FamilyFormEdit({ familyId }: FamilyFormEditProps) {
   const { family, isLoading, isError } = useFamily(familyId);
 
-  if (isLoading) return <Skeleton className="h-64 w-full" />;
+  if (isLoading) return <FormSkeleton fields={1} columns={1} />;
   if (isError || !family) return <DataLoadErrorState />;
 
   return <FamilyEditFormContent family={family} />;
