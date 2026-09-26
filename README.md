@@ -72,6 +72,19 @@ messages/pt-BR.json
 stores/           # estado global (permissões, UI)
 ```
 
+## Bugs conhecidos
+
+### Clicar na logo em `/confirmar-email` permite entrar no sistema sem verificar o e-mail
+
+**Como reproduzir**: registre uma conta nova (fica com `emailVerifiedAt: null` e já logada, via auto-login no registro) → na tela "Confirme seu e-mail", clique na logo no topo em vez de informar o código → o usuário é levado para dentro da área autenticada (`/membros`) sem nunca ter confirmado o código.
+
+**Causa raiz**: a logo em `app/(account)/layout.tsx` é um `<a href={paths.home}>` (HTML puro), não um `<Link>` do Next — o clique força um **reload completo da página**, que limpa o cache do React Query. É nesse cache (populado pela resposta de `/auth/register`) que vive o único lugar onde `emailVerifiedAt: null` fica acessível no cliente. Depois do reload, `app/api/auth/session/route.ts` reidrata a sessão só decodificando o JWT, e esse payload **não inclui `emailVerifiedAt`**. Resultado: em `components/layout/EmailVerificationGate.tsx`, `isKnownUnverified = user?.emailVerifiedAt === null` vira `undefined === null` → `false`, o gate nunca redireciona de volta pra `/confirmar-email`, e a página protegida renderiza normalmente — não é só um "flash", o usuário fica dentro do sistema.
+
+**Possível solução** (não implementada ainda):
+1. Trocar o `<a href={paths.home}>` da logo em `app/(account)/layout.tsx` por `<Link href={paths.home}>` do `next/link`, evitando o reload completo e a perda do cache — resolve o caso específico do clique na logo.
+2. Correção mais profunda (fecha a lacuna de verdade, inclusive pra F5 na própria página protegida): incluir `emailVerifiedAt` no payload do JWT ao assinar o token (hoje o backend já manda esse campo no `jwtSign` de login/registro, então já daria pra propagar) e fazer `app/api/auth/session/route.ts` repassar esse campo pro `SessionUser`, em vez de depender só do cache do React Query populado na mesma aba.
+3. Vale lembrar que isso é só um controle de UX no cliente — o `EmailVerificationGate` já deixa claro no seu próprio comentário que não é segurança real. Rotas protegidas sensíveis no backend deveriam, se necessário, exigir `emailVerifiedAt` non-null explicitamente no `authenticate`/`authorize`, e não confiar só no redirect do frontend.
+
 ## Licença
 
 Todos os direitos reservados. Veja [LICENSE](./LICENSE) — este projeto não pode ser usado, copiado, modificado ou redistribuído por terceiros sem autorização expressa do autor.
