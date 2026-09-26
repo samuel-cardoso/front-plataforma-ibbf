@@ -1,15 +1,26 @@
 import { createTranslator } from "use-intl/core";
-import messages from "../../../messages/pt-BR.json";
-import { DEFAULT_LOCALE } from "@/lib/i18n";
+import ptBR from "../../../messages/pt-BR.json";
+import en from "../../../messages/en.json";
+import { LOCALE_COOKIE, DEFAULT_LOCALE, isSupportedLocale, type Locale } from "@/config/i18n";
 
-const translator = createTranslator({
-  locale: DEFAULT_LOCALE,
-  messages,
-  namespace: "erros",
-});
+const messagesByLocale: Record<Locale, typeof ptBR> = { "pt-BR": ptBR, en };
+
+function getActiveLocale(): Locale {
+  if (typeof document === "undefined") return DEFAULT_LOCALE;
+
+  const match = document.cookie.match(new RegExp(`(?:^|; )${LOCALE_COOKIE}=([^;]*)`));
+  const value = match ? decodeURIComponent(match[1]) : undefined;
+  return isSupportedLocale(value) ? value : DEFAULT_LOCALE;
+}
+
+function getTranslator() {
+  const locale = getActiveLocale();
+  return createTranslator({ locale, messages: messagesByLocale[locale], namespace: "erros" });
+}
 
 /** Traduz um `code` de erro estável do backend (ex.: "MEMBER.CPF_ALREADY_EXISTS") para uma mensagem amigável. */
 export function translateErrorCode(code: string | undefined): string {
+  const translator = getTranslator();
   if (!code) return translator("padrao");
 
   // @ts-expect-error -- os `code`s do backend não são conhecidos estaticamente pelo schema de mensagens.

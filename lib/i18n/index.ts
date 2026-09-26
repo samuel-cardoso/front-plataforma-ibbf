@@ -1,1 +1,1 @@
-export { DEFAULT_LOCALE } from "./request";
+export { DEFAULT_LOCALE, SUPPORTED_LOCALES, type Locale } from "@/config/i18n";
