@@ -96,7 +96,7 @@ export function VerifyEmailForm() {
               <FieldError errors={[formState.errors.email]} />
             </Field>
             <Field data-invalid={!!formState.errors.code}>
-              <FieldLabel>{t("codigo")}</FieldLabel>
+              <FieldLabel className="w-full justify-center text-center">{t("codigo")}</FieldLabel>
               <Controller
                 control={control}
                 name="code"
@@ -107,6 +107,7 @@ export function VerifyEmailForm() {
                     onChange={field.onChange}
                     onComplete={() => handleSubmit(onSubmit)()}
                     autoFocus={!codeFromQuery}
+                    containerClassName="justify-center"
                   >
                     <InputOTPGroup>
                       <InputOTPSlot index={0} />
