@@ -11,6 +11,8 @@
     "buscar": "Buscar",
     "filtros": "Filtros",
     "limparFiltros": "Limpar filtros",
+    "selecionarData": "Selecionar data",
+    "limpar": "Limpar",
     "filtrarPor": "Filtre por {campo}...",
     "carregando": "Carregando...",
     "semResultados": "Nenhum resultado encontrado.",
@@ -95,6 +97,13 @@
     "family": "Família",
     "semFamilia": "Sem família",
     "buscarPlaceholder": "Buscar por nome...",
+    "fullNamePlaceholder": "Digite o nome completo",
+    "cpfPlaceholder": "000.000.000-00",
+    "phonePlaceholder": "(00) 00000-0000",
+    "addressPlaceholder": "Rua, número, bairro, cidade",
+    "memberTypePlaceholder": "Selecione o tipo",
+    "memberStatusPlaceholder": "Selecione a situação",
+    "familyPlaceholder": "Selecione a família",
     "memberTypeMEMBER": "Membro",
     "memberTypeCONGREGANT": "Congregado",
     "memberTypeVISITOR": "Visitante",
@@ -108,7 +117,8 @@
     "editarFamilia": "Editar família",
     "name": "Nome",
     "createdAt": "Criada em",
-    "buscarPlaceholder": "Buscar por nome..."
+    "buscarPlaceholder": "Buscar por nome...",
+    "namePlaceholder": "Digite o nome da família"
   },
   "ministerios": {
     "titulo": "Ministérios",
@@ -125,7 +135,12 @@
     "papel": "Papel",
     "papelLEADER": "Líder",
     "papelMEMBER": "Membro",
-    "joinedAt": "Desde"
+    "joinedAt": "Desde",
+    "namePlaceholder": "Digite o nome do ministério",
+    "leaderPlaceholder": "Selecione o líder",
+    "descriptionPlaceholder": "Descreva o propósito do ministério",
+    "membroPlaceholder": "Selecione o membro",
+    "papelPlaceholder": "Selecione o papel"
   },
   "termos": {
     "titulo": "Termos de Uso",

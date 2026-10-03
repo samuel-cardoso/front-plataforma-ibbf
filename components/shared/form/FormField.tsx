@@ -3,8 +3,10 @@
 import { Controller, type Control, type FieldValues, type Path } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Field, FieldLabel, FieldError } from "@/components/ui/field";
+import { DatePicker } from "./DatePicker";
+import { maskCpf, maskPhone } from "@/lib/utils/format/mask";
 import {
   Select,
   SelectContent,
@@ -12,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 
 type SelectOption = { label: string; value: string };
 
@@ -26,6 +27,13 @@ type FormFieldType =
   | "select"
   | "checkbox";
 
+type FormFieldMask = "cpf" | "phone";
+
+const MASKS: Record<FormFieldMask, (value: string) => string> = {
+  cpf: maskCpf,
+  phone: maskPhone,
+};
+
 type FormFieldProps<TFieldValues extends FieldValues> = {
   control: Control<TFieldValues>;
   name: Path<TFieldValues>;
@@ -33,6 +41,7 @@ type FormFieldProps<TFieldValues extends FieldValues> = {
   type?: FormFieldType;
   placeholder?: string;
   options?: SelectOption[];
+  mask?: FormFieldMask;
   disabled?: boolean;
   className?: string;
 };
@@ -45,6 +54,7 @@ export function FormField<TFieldValues extends FieldValues>({
   type = "text",
   placeholder,
   options,
+  mask,
   disabled,
   className,
 }: FormFieldProps<TFieldValues>) {
@@ -53,74 +63,95 @@ export function FormField<TFieldValues extends FieldValues>({
       control={control}
       name={name}
       render={({ field, fieldState }) => (
-        <div className={cn("flex flex-col gap-1.5", className)} data-field-name={name}>
-          {type !== "checkbox" && <Label htmlFor={name}>{label}</Label>}
-
-          {type === "textarea" && (
-            <Textarea
-              id={name}
-              placeholder={placeholder}
-              disabled={disabled}
-              name={field.name}
-              ref={field.ref}
-              onBlur={field.onBlur}
-              onChange={field.onChange}
-              value={field.value ?? ""}
-              aria-invalid={!!fieldState.error}
-            />
-          )}
-
-          {type === "select" && (
-            <Select
-              value={field.value ?? undefined}
-              onValueChange={field.onChange}
-              disabled={disabled}
-              items={options}
-            >
-              <SelectTrigger id={name} className="w-full" aria-invalid={!!fieldState.error}>
-                <SelectValue placeholder={placeholder} />
-              </SelectTrigger>
-              <SelectContent>
-                {options?.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-
-          {type === "checkbox" && (
-            <div className="flex items-center gap-2">
+        <Field
+          orientation={type === "checkbox" ? "horizontal" : "vertical"}
+          data-invalid={!!fieldState.error}
+          className={className}
+          data-field-name={name}
+        >
+          {type === "checkbox" ? (
+            <>
               <Checkbox
                 id={name}
                 checked={!!field.value}
                 onCheckedChange={field.onChange}
                 disabled={disabled}
               />
-              <Label htmlFor={name}>{label}</Label>
-            </div>
+              <FieldLabel htmlFor={name} className="font-normal">
+                {label}
+              </FieldLabel>
+            </>
+          ) : (
+            <>
+              <FieldLabel htmlFor={name}>{label}</FieldLabel>
+
+              {type === "textarea" && (
+                <Textarea
+                  id={name}
+                  placeholder={placeholder}
+                  disabled={disabled}
+                  name={field.name}
+                  ref={field.ref}
+                  onBlur={field.onBlur}
+                  onChange={field.onChange}
+                  value={field.value ?? ""}
+                  aria-invalid={!!fieldState.error}
+                />
+              )}
+
+              {type === "select" && (
+                <Select
+                  value={field.value ?? undefined}
+                  onValueChange={field.onChange}
+                  disabled={disabled}
+                  items={options}
+                >
+                  <SelectTrigger id={name} className="w-full" aria-invalid={!!fieldState.error}>
+                    <SelectValue placeholder={placeholder} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {options?.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+
+              {type === "date" && (
+                <DatePicker
+                  id={name}
+                  placeholder={placeholder}
+                  disabled={disabled}
+                  value={field.value ?? ""}
+                  onBlur={field.onBlur}
+                  onChange={field.onChange}
+                  aria-invalid={!!fieldState.error}
+                />
+              )}
+
+              {type !== "textarea" && type !== "select" && type !== "date" && (
+                <Input
+                  id={name}
+                  type={type}
+                  placeholder={placeholder}
+                  disabled={disabled}
+                  name={field.name}
+                  ref={field.ref}
+                  onBlur={field.onBlur}
+                  onChange={(e) =>
+                    field.onChange(mask ? MASKS[mask](e.target.value) : e.target.value)
+                  }
+                  value={field.value ?? ""}
+                  aria-invalid={!!fieldState.error}
+                />
+              )}
+            </>
           )}
 
-          {type !== "textarea" && type !== "select" && type !== "checkbox" && (
-            <Input
-              id={name}
-              type={type}
-              placeholder={placeholder}
-              disabled={disabled}
-              name={field.name}
-              ref={field.ref}
-              onBlur={field.onBlur}
-              onChange={field.onChange}
-              value={field.value ?? ""}
-              aria-invalid={!!fieldState.error}
-            />
-          )}
-
-          {fieldState.error && (
-            <p className="text-sm text-destructive">{fieldState.error.message}</p>
-          )}
-        </div>
+          <FieldError errors={[fieldState.error]} />
+        </Field>
       )}
     />
   );

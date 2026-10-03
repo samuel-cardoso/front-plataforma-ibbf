@@ -3,6 +3,7 @@
 import type { Control } from "react-hook-form";
 import { useTranslations, useMembers } from "@/hooks";
 import { FormSection, FormGrid, FormField, FormActions } from "@/components/shared/form";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { MinistryFormData } from "@/lib/zod/schemas/ministryFormSchema";
 
@@ -22,28 +23,44 @@ export function MinistryForm({ control, onCancel, isSubmitting }: MinistryFormPr
   ];
 
   return (
-    <div className="flex flex-col gap-6">
-      <FormSection>
-        <FormGrid columns={2}>
-          <FormField control={control} name="name" label={t("name")} />
-          {isLoadingMembers ? (
-            <div className="flex flex-col gap-2">
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-9 w-full" />
-            </div>
-          ) : (
+    <Card>
+      <CardContent>
+        <FormSection>
+          <FormGrid columns={2}>
             <FormField
               control={control}
-              name="leaderId"
-              label={t("leader")}
-              type="select"
-              options={leaderOptions}
+              name="name"
+              label={t("name")}
+              placeholder={t("namePlaceholder")}
             />
-          )}
-        </FormGrid>
-        <FormField control={control} name="description" label={t("description")} type="textarea" />
-      </FormSection>
-      <FormActions onCancel={onCancel} isSubmitting={isSubmitting} />
-    </div>
+            {isLoadingMembers ? (
+              <div className="flex flex-col gap-2">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-9 w-full" />
+              </div>
+            ) : (
+              <FormField
+                control={control}
+                name="leaderId"
+                label={t("leader")}
+                type="select"
+                options={leaderOptions}
+                placeholder={t("leaderPlaceholder")}
+              />
+            )}
+          </FormGrid>
+          <FormField
+            control={control}
+            name="description"
+            label={t("description")}
+            type="textarea"
+            placeholder={t("descriptionPlaceholder")}
+          />
+        </FormSection>
+      </CardContent>
+      <CardFooter className="justify-end gap-2">
+        <FormActions onCancel={onCancel} isSubmitting={isSubmitting} />
+      </CardFooter>
+    </Card>
   );
 }

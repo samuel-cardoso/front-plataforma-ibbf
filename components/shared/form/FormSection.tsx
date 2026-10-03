@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { FieldSet, FieldLegend, FieldDescription } from "@/components/ui/field";
 
 type FormSectionProps = {
   title?: string;
@@ -8,14 +9,10 @@ type FormSectionProps = {
 
 export function FormSection({ title, description, children }: FormSectionProps) {
   return (
-    <section className="flex flex-col gap-4">
-      {(title || description) && (
-        <div>
-          {title && <h3 className="text-sm font-semibold">{title}</h3>}
-          {description && <p className="text-sm text-muted-foreground">{description}</p>}
-        </div>
-      )}
+    <FieldSet>
+      {title && <FieldLegend variant="label">{title}</FieldLegend>}
+      {description && <FieldDescription>{description}</FieldDescription>}
       {children}
-    </section>
+    </FieldSet>
   );
 }

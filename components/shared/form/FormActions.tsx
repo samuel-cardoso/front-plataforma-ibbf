@@ -17,13 +17,13 @@ export function FormActions({
   const t = useTranslations("comum");
 
   return (
-    <div className="flex justify-end gap-2 border-t pt-4">
+    <>
       <Button type="button" variant="outline" onClick={onCancel} disabled={isSubmitting}>
         {t("cancelar")}
       </Button>
       <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? (submittingLabel ?? t("salvando")) : (submitLabel ?? t("salvar"))}
       </Button>
-    </div>
+    </>
   );
 }

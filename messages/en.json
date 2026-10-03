@@ -11,6 +11,8 @@
     "buscar": "Search",
     "filtros": "Filters",
     "limparFiltros": "Clear filters",
+    "selecionarData": "Select date",
+    "limpar": "Clear",
     "filtrarPor": "Filter by {campo}...",
     "carregando": "Loading...",
     "semResultados": "No results found.",
@@ -95,6 +97,13 @@
     "family": "Family",
     "semFamilia": "No family",
     "buscarPlaceholder": "Search by name...",
+    "fullNamePlaceholder": "Enter full name",
+    "cpfPlaceholder": "000.000.000-00",
+    "phonePlaceholder": "(00) 00000-0000",
+    "addressPlaceholder": "Street, number, neighborhood, city",
+    "memberTypePlaceholder": "Select type",
+    "memberStatusPlaceholder": "Select status",
+    "familyPlaceholder": "Select family",
     "memberTypeMEMBER": "Member",
     "memberTypeCONGREGANT": "Congregant",
     "memberTypeVISITOR": "Visitor",
@@ -108,7 +117,8 @@
     "editarFamilia": "Edit family",
     "name": "Name",
     "createdAt": "Created at",
-    "buscarPlaceholder": "Search by name..."
+    "buscarPlaceholder": "Search by name...",
+    "namePlaceholder": "Enter family name"
   },
   "ministerios": {
     "titulo": "Ministries",
@@ -125,7 +135,12 @@
     "papel": "Role",
     "papelLEADER": "Leader",
     "papelMEMBER": "Member",
-    "joinedAt": "Since"
+    "joinedAt": "Since",
+    "namePlaceholder": "Enter ministry name",
+    "leaderPlaceholder": "Select leader",
+    "descriptionPlaceholder": "Describe the ministry's purpose",
+    "membroPlaceholder": "Select member",
+    "papelPlaceholder": "Select role"
   },
   "termos": {
     "titulo": "Terms of Use",

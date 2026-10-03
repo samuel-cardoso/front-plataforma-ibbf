@@ -10,6 +10,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -66,6 +67,7 @@ export function MinistryMemberAddForm({ ministryId, open, onOpenChange }: Minist
               label={t("membro")}
               type="select"
               options={memberOptions}
+              placeholder={t("membroPlaceholder")}
             />
           )}
           <FormField
@@ -74,8 +76,11 @@ export function MinistryMemberAddForm({ ministryId, open, onOpenChange }: Minist
             label={t("papel")}
             type="select"
             options={roleOptions}
+            placeholder={t("papelPlaceholder")}
           />
-          <FormActions onCancel={() => onOpenChange(false)} isSubmitting={isAdding} />
+          <DialogFooter>
+            <FormActions onCancel={() => onOpenChange(false)} isSubmitting={isAdding} />
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
