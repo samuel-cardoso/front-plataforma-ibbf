@@ -1,7 +1,15 @@
 "use client";
 
 import { toast } from "sonner";
-import { useState, useTranslations, usePermissions, useUpdateMinistryMemberRole, useRemoveMinistryMember } from "@/hooks";
+import {
+  useState,
+  useTranslations,
+  useLocale,
+  usePermissions,
+  useUpdateMinistryMemberRole,
+  useRemoveMinistryMember,
+} from "@/hooks";
+import { formatLocalizedDate } from "@/lib/utils/format/date";
 import {
   Table,
   TableBody,
@@ -32,6 +40,7 @@ type MinistryMembersTableProps = {
 export function MinistryMembersTable({ ministryId, participations }: MinistryMembersTableProps) {
   const t = useTranslations("ministerios");
   const tComum = useTranslations("comum");
+  const locale = useLocale();
   const { canManage } = usePermissions();
   const { updateRole, isUpdatingRole } = useUpdateMinistryMemberRole(ministryId);
   const { removeMember, isRemoving } = useRemoveMinistryMember(ministryId);
@@ -100,7 +109,7 @@ export function MinistryMembersTable({ ministryId, participations }: MinistryMem
               </TableCell>
               <TableCell>
                 {participation.joinedAt
-                  ? new Date(participation.joinedAt).toLocaleDateString("pt-BR")
+                  ? formatLocalizedDate(participation.joinedAt, locale)
                   : "—"}
               </TableCell>
               {canManage && (

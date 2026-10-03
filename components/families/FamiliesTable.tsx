@@ -2,7 +2,8 @@
 
 import { toast } from "sonner";
 import Link from "next/link";
-import { useState, useTranslations, usePermissions, useDeleteFamily } from "@/hooks";
+import { useState, useTranslations, useLocale, usePermissions, useDeleteFamily } from "@/hooks";
+import { formatLocalizedDate } from "@/lib/utils/format/date";
 import {
   Table,
   TableBody,
@@ -31,6 +32,7 @@ type FamiliesTableProps = {
 export function FamiliesTable({ families }: FamiliesTableProps) {
   const t = useTranslations("familias");
   const tComum = useTranslations("comum");
+  const locale = useLocale();
   const { canManage } = usePermissions();
   const { deleteFamily, isDeleting } = useDeleteFamily();
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -60,7 +62,7 @@ export function FamiliesTable({ families }: FamiliesTableProps) {
             <TableRow key={family.id}>
               <TableCell className="font-medium">{family.name}</TableCell>
               <TableCell>
-                {family.createdAt ? new Date(family.createdAt).toLocaleDateString("pt-BR") : "—"}
+                {family.createdAt ? formatLocalizedDate(family.createdAt, locale) : "—"}
               </TableCell>
               {canManage && (
                 <TableCell>
