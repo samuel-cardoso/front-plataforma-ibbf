@@ -75,6 +75,7 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     isActive={pathname.startsWith(item.href)}
                     tooltip={item.label}
+                    className="hover:bg-primary/10 hover:text-primary data-active:bg-primary/10 data-active:text-primary"
                     render={
                       <Link href={item.href}>
                         <item.icon />
