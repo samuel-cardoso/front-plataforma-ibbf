@@ -8,7 +8,7 @@ import { MinistryMembersTable } from "./MinistryMembersTable";
 import { MinistryMemberAddForm } from "./MinistryMemberAddForm";
 import { MINISTRY_PAGE_SIZE } from "@/lib/consts/ministry";
 import { paths } from "@/lib/utils/paths";
-import { ChevronLeft, Plus } from "lucide-react";
+import { ChevronLeft, Plus, Users } from "lucide-react";
 
 type MinistryMembersPageContentProps = { ministryId: string };
 
@@ -53,7 +53,7 @@ export function MinistryMembersPageContent({ ministryId }: MinistryMembersPageCo
       {isLoading && <TableSkeleton columns={canManage ? 4 : 3} />}
       {!isLoading && isError && <DataLoadErrorState onRetry={refetch} />}
       {!isLoading && !isError && participations.length === 0 && (
-        <EmptyState message={tComum("semResultados")} />
+        <EmptyState icon={Users} message={tComum("semResultados")} />
       )}
       {!isLoading && !isError && participations.length > 0 && (
         <MinistryMembersTable ministryId={ministryId} participations={participations} />

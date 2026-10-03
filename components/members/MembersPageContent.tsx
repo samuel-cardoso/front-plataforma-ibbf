@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState, useTranslations, useMembers, useFamilies, usePagination, usePermissions } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { EmptyState, DataLoadErrorState, Pagination, TableSkeleton } from "@/components/shared";
+import { Users } from "lucide-react";
 import { MembersFilters, type MembersFiltersState } from "./MembersFilters";
 import { MembersTable } from "./MembersTable";
 import { EMPTY_MEMBER_FILTERS, MEMBER_PAGE_SIZE } from "@/lib/consts/member";
@@ -54,7 +55,9 @@ export function MembersPageContent() {
 
       {isLoading && <TableSkeleton columns={canManage ? 5 : 4} />}
       {!isLoading && isError && <DataLoadErrorState onRetry={refetch} />}
-      {!isLoading && !isError && members.length === 0 && <EmptyState message={tComum("semResultados")} />}
+      {!isLoading && !isError && members.length === 0 && (
+        <EmptyState icon={Users} message={tComum("semResultados")} />
+      )}
       {!isLoading && !isError && members.length > 0 && (
         <MembersTable members={members} familyNameById={familyNameById} />
       )}

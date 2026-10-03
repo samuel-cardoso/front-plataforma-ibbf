@@ -14,7 +14,7 @@ import {
 } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, HeartHandshake } from "lucide-react";
 import { EmptyState, DataLoadErrorState, Pagination, TableSkeleton } from "@/components/shared";
 import { MinistriesTable } from "./MinistriesTable";
 import { MINISTRY_PAGE_SIZE } from "@/lib/consts/ministry";
@@ -73,7 +73,7 @@ export function MinistriesPageContent() {
       {isLoading && <TableSkeleton columns={3} />}
       {!isLoading && isError && <DataLoadErrorState onRetry={refetch} />}
       {!isLoading && !isError && ministries.length === 0 && (
-        <EmptyState message={tComum("semResultados")} />
+        <EmptyState icon={HeartHandshake} message={tComum("semResultados")} />
       )}
       {!isLoading && !isError && ministries.length > 0 && (
         <MinistriesTable ministries={ministries} memberNameById={memberNameById} />

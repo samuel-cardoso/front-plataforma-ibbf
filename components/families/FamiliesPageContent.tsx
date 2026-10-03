@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useTranslations, useFamilies, useDebounce, usePagination, usePermissions } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, House } from "lucide-react";
 import { EmptyState, DataLoadErrorState, Pagination, TableSkeleton } from "@/components/shared";
 import { FamiliesTable } from "./FamiliesTable";
 import { FAMILY_PAGE_SIZE } from "@/lib/consts/family";
@@ -57,7 +57,7 @@ export function FamiliesPageContent() {
       {isLoading && <TableSkeleton columns={canManage ? 3 : 2} />}
       {!isLoading && isError && <DataLoadErrorState onRetry={refetch} />}
       {!isLoading && !isError && families.length === 0 && (
-        <EmptyState message={tComum("semResultados")} />
+        <EmptyState icon={House} message={tComum("semResultados")} />
       )}
       {!isLoading && !isError && families.length > 0 && <FamiliesTable families={families} />}
 
