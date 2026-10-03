@@ -143,7 +143,7 @@ export function FormField<TFieldValues extends FieldValues>({
                   onChange={(e) =>
                     field.onChange(mask ? MASKS[mask](e.target.value) : e.target.value)
                   }
-                  value={field.value ?? ""}
+                  value={mask ? MASKS[mask](field.value ?? "") : (field.value ?? "")}
                   aria-invalid={!!fieldState.error}
                 />
               )}
