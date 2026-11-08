@@ -1,4 +1,13 @@
-import { authService, memberService, familyService, ministryService, financeService } from "./services";
+import {
+  authService,
+  memberService,
+  familyService,
+  ministryService,
+  financeService,
+  bibleService,
+  hymnService,
+  canticleService,
+} from "./services";
 
 /**
  * Fachada única consumida pelos hooks de API. Hooks nunca chamam `services`
@@ -58,4 +67,12 @@ export const endpoints = {
   listFinancePeriods: financeService.listPeriods,
   closeFinancePeriod: financeService.closePeriod,
   reopenFinancePeriod: financeService.reopenPeriod,
+
+  listBibleVersions: bibleService.listVersions,
+  listBibleBooks: bibleService.listBooks,
+  getBibleChapter: bibleService.getChapter,
+  listHymns: hymnService.list,
+  getHymn: hymnService.get,
+  listCanticles: canticleService.list,
+  getCanticle: canticleService.get,
 };

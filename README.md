@@ -29,10 +29,13 @@ npm install
 cp .env.local.example .env.local
 ```
 
-Preencha o `.env.local` com a URL do [backend](https://github.com/samuel-cardoso/back-plataforma-ibbf) local:
+Preencha o `.env.local` com a URL do [backend](https://github.com/samuel-cardoso/back-plataforma-ibbf) local e das APIs de conteúdo ([Bíblia](https://github.com/samuel-cardoso/biblia-ibbf), [Cantor Cristão](https://github.com/samuel-cardoso/hinario-ibbf) e cânticos):
 
 ```
 BACKEND_API_URL=http://localhost:3010
+BIBLE_API_URL=http://localhost:3012
+HYMNAL_API_URL=http://localhost:3011
+CANTICLES_API_URL=http://localhost:3013
 COOKIE_SECURE=false
 ```
 

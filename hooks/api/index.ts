@@ -11,3 +11,4 @@ export * from "./useFamilies";
 export * from "./useMinistries";
 export * from "./useMinistryMembers";
 export * from "./useFinance";
+export * from "./useContent";
