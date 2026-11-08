@@ -53,6 +53,7 @@ export function FamiliesTable({ families }: FamiliesTableProps) {
         <TableHeader>
           <TableRow>
             <TableHead>{t("name")}</TableHead>
+            <TableHead>{t("address")}</TableHead>
             <TableHead>{t("createdAt")}</TableHead>
             {canManage && <TableHead className="w-10">{tComum("acoes")}</TableHead>}
           </TableRow>
@@ -61,6 +62,7 @@ export function FamiliesTable({ families }: FamiliesTableProps) {
           {families.map((family) => (
             <TableRow key={family.id}>
               <TableCell className="font-medium">{family.name}</TableCell>
+              <TableCell className="text-muted-foreground">{family.address ?? "—"}</TableCell>
               <TableCell>
                 {family.createdAt ? formatLocalizedDate(family.createdAt, locale) : "—"}
               </TableCell>

@@ -8,6 +8,7 @@ export function useFamilyForm(t: (key: string) => string, family?: Family) {
     resolver: zodResolver(familyFormSchema(t)),
     defaultValues: {
       name: family?.name ?? "",
+      address: family?.address ?? "",
     },
   });
 }

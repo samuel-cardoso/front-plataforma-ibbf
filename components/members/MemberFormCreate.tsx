@@ -7,13 +7,13 @@ import { paths } from "@/lib/utils/paths";
 import { getAxiosErrorMessage } from "@/lib/utils/api/getAxiosErrorMessage";
 import { scrollToFirstError } from "@/lib/utils/validation/scrollToFirstError";
 import type { MemberFormData } from "@/lib/zod/schemas/memberFormSchema";
-import type { MemberCreateInput, MemberStatus, MemberType } from "@/lib/types/memberApiTypes";
+import type { FamilyRole, MemberCreateInput, MemberStatus, MemberType } from "@/lib/types/memberApiTypes";
 
 export function MemberFormCreate() {
   const router = useRouter();
   const tValidation = useTranslations("validacao");
   const { createMember, isCreating } = useCreateMember();
-  const { control, handleSubmit } = useMemberForm(tValidation);
+  const { control, handleSubmit, setValue } = useMemberForm(tValidation);
 
   const onSubmit = async (data: MemberFormData) => {
     const payload: MemberCreateInput = {
@@ -26,7 +26,9 @@ export function MemberFormCreate() {
       memberStatus: data.memberStatus as MemberStatus,
       joinedAt: data.joinedAt || undefined,
       baptized: data.baptized,
-      familyId: data.familyId && data.familyId !== "none" ? data.familyId : undefined,
+      familyId: data.familyId || undefined,
+      familyRole:
+        data.familyId && data.familyRole !== "none" ? (data.familyRole as FamilyRole) : undefined,
     };
 
     try {
@@ -41,6 +43,7 @@ export function MemberFormCreate() {
     <form onSubmit={handleSubmit(onSubmit, scrollToFirstError)}>
       <MemberForm
         control={control}
+        setValue={setValue}
         isSubmitting={isCreating}
         onCancel={() => router.push(paths.members.list)}
       />

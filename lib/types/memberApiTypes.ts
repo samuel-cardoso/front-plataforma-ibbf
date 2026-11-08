@@ -2,11 +2,13 @@ import type { ListParams } from "./apiEnvelopeTypes";
 
 export type MemberType = "MEMBER" | "CONGREGANT" | "VISITOR";
 export type MemberStatus = "ACTIVE" | "INACTIVE" | "TRANSFERRED";
+export type FamilyRole = "HEAD" | "SPOUSE" | "CHILD" | "OTHER";
 
 export type Member = {
   id: string;
   userId: string | null;
   familyId: string | null;
+  familyRole: FamilyRole | null;
   fullName: string;
   cpf: string | null;
   birthDate: string;
@@ -36,6 +38,7 @@ export type MemberCreateInput = {
   baptized?: boolean;
   userId?: string;
   familyId?: string;
+  familyRole?: FamilyRole;
 };
 
 export type MemberUpdateInput = {
@@ -49,5 +52,6 @@ export type MemberUpdateInput = {
   joinedAt?: string;
   baptized?: boolean;
   familyId?: string | null;
+  familyRole?: FamilyRole | null;
   userId?: string | null;
 };

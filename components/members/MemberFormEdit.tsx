@@ -8,7 +8,7 @@ import { MemberForm } from "./MemberForm";
 import { paths } from "@/lib/utils/paths";
 import { getAxiosErrorMessage } from "@/lib/utils/api/getAxiosErrorMessage";
 import { scrollToFirstError } from "@/lib/utils/validation/scrollToFirstError";
-import type { Member, MemberStatus, MemberType, MemberUpdateInput } from "@/lib/types/memberApiTypes";
+import type { FamilyRole, Member, MemberStatus, MemberType, MemberUpdateInput } from "@/lib/types/memberApiTypes";
 import type { MemberFormData } from "@/lib/zod/schemas/memberFormSchema";
 
 type MemberFormEditProps = { memberId: string };
@@ -26,7 +26,7 @@ function MemberEditFormContent({ member }: { member: Member }) {
   const router = useRouter();
   const tValidation = useTranslations("validacao");
   const { updateMember, isUpdating } = useUpdateMember();
-  const { control, handleSubmit } = useMemberForm(tValidation, member);
+  const { control, handleSubmit, setValue } = useMemberForm(tValidation, member);
 
   const onSubmit = async (data: MemberFormData) => {
     const payload: MemberUpdateInput = {
@@ -39,7 +39,9 @@ function MemberEditFormContent({ member }: { member: Member }) {
       memberStatus: data.memberStatus as MemberStatus,
       joinedAt: data.joinedAt || undefined,
       baptized: data.baptized,
-      familyId: data.familyId && data.familyId !== "none" ? data.familyId : null,
+      familyId: data.familyId || null,
+      familyRole:
+        data.familyId && data.familyRole !== "none" ? (data.familyRole as FamilyRole) : null,
     };
 
     try {
@@ -54,6 +56,7 @@ function MemberEditFormContent({ member }: { member: Member }) {
     <form onSubmit={handleSubmit(onSubmit, scrollToFirstError)}>
       <MemberForm
         control={control}
+        setValue={setValue}
         isSubmitting={isUpdating}
         onCancel={() => router.push(paths.members.list)}
       />

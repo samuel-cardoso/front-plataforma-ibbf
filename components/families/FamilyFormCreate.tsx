@@ -16,7 +16,7 @@ export function FamilyFormCreate() {
 
   const onSubmit = async (data: FamilyFormData) => {
     try {
-      await createFamily(data);
+      await createFamily({ name: data.name, address: data.address || undefined });
       router.push(paths.families.list);
     } catch (error) {
       toast.error(getAxiosErrorMessage(error));

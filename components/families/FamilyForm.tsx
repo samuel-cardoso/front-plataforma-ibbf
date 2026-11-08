@@ -19,12 +19,18 @@ export function FamilyForm({ control, onCancel, isSubmitting }: FamilyFormProps)
     <Card>
       <CardContent>
         <FormSection>
-          <FormGrid columns={1}>
+          <FormGrid columns={2}>
             <FormField
               control={control}
               name="name"
               label={t("name")}
               placeholder={t("namePlaceholder")}
+            />
+            <FormField
+              control={control}
+              name="address"
+              label={t("address")}
+              placeholder={t("addressPlaceholder")}
             />
           </FormGrid>
         </FormSection>

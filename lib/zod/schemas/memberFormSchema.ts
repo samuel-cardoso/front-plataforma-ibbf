@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MEMBER_STATUS_VALUES, MEMBER_TYPE_VALUES } from "@/lib/consts/member";
+import { FAMILY_ROLE_VALUES, MEMBER_STATUS_VALUES, MEMBER_TYPE_VALUES } from "@/lib/consts/member";
 
 type ValidationT = (key: string) => string;
 
@@ -27,6 +27,12 @@ export const memberFormSchema = (t: ValidationT) =>
     joinedAt: z.string().optional(),
     baptized: z.boolean(),
     familyId: z.string().optional(),
+    familyRole: z
+      .string()
+      .refine(
+        (value) => value === "none" || (FAMILY_ROLE_VALUES as string[]).includes(value),
+        t("valorInvalido"),
+      ),
   });
 
 export type MemberFormData = z.infer<ReturnType<typeof memberFormSchema>>;

@@ -3,3 +3,5 @@ export * from "./FamiliesTable";
 export * from "./FamilyForm";
 export * from "./FamilyFormCreate";
 export * from "./FamilyFormEdit";
+export * from "./FamilyCombobox";
+export * from "./FamilyMembersCard";

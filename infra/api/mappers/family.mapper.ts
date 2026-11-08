@@ -5,6 +5,7 @@ export function mapFamily(raw: unknown): Family {
   return {
     id: String(r.id ?? ""),
     name: String(r.name ?? ""),
+    address: (r.address as string | null) ?? null,
     createdAt: String(r.createdAt ?? ""),
   };
 }

@@ -6,6 +6,7 @@ export function mapMember(raw: unknown): Member {
     id: String(r.id ?? ""),
     userId: (r.userId as string | null) ?? null,
     familyId: (r.familyId as string | null) ?? null,
+    familyRole: (r.familyRole as Member["familyRole"]) ?? null,
     fullName: String(r.fullName ?? ""),
     cpf: (r.cpf as string | null) ?? null,
     birthDate: String(r.birthDate ?? ""),

@@ -1,22 +1,28 @@
 "use client";
 
-import type { Control } from "react-hook-form";
-import { useTranslations, useFamilies } from "@/hooks";
+import type { Control, UseFormSetValue } from "react-hook-form";
+import { HomeIcon } from "lucide-react";
+import { Controller, useTranslations, useWatch, useFamily } from "@/hooks";
 import { FormSection, FormGrid, FormField, FormActions } from "@/components/shared/form";
+import { FamilyCombobox } from "@/components/families/FamilyCombobox";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { MEMBER_STATUS_VALUES, MEMBER_TYPE_VALUES } from "@/lib/consts/member";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { FAMILY_ROLE_VALUES, MEMBER_STATUS_VALUES, MEMBER_TYPE_VALUES } from "@/lib/consts/member";
 import type { MemberFormData } from "@/lib/zod/schemas/memberFormSchema";
 
 type MemberFormProps = {
   control: Control<MemberFormData>;
+  setValue: UseFormSetValue<MemberFormData>;
   onCancel: () => void;
   isSubmitting?: boolean;
 };
 
-export function MemberForm({ control, onCancel, isSubmitting }: MemberFormProps) {
+export function MemberForm({ control, setValue, onCancel, isSubmitting }: MemberFormProps) {
   const t = useTranslations("membros");
-  const { families, isLoading: isLoadingFamilies } = useFamilies({ limit: 100 });
+  const [familyId, address] = useWatch({ control, name: ["familyId", "address"] });
+  const { family } = useFamily(familyId ?? "");
+  const familyAddress = familyId ? family?.address : null;
 
   const memberTypeOptions = MEMBER_TYPE_VALUES.map((value) => ({
     value,
@@ -26,9 +32,9 @@ export function MemberForm({ control, onCancel, isSubmitting }: MemberFormProps)
     value,
     label: t(`memberStatus${value}`),
   }));
-  const familyOptions = [
-    { value: "none", label: t("semFamilia") },
-    ...families.map((family) => ({ value: family.id, label: family.name })),
+  const familyRoleOptions = [
+    { value: "none", label: t("familyRoleNone") },
+    ...FAMILY_ROLE_VALUES.map((value) => ({ value, label: t(`familyRole${value}`) })),
   ];
 
   return (
@@ -58,12 +64,26 @@ export function MemberForm({ control, onCancel, isSubmitting }: MemberFormProps)
               mask="phone"
               placeholder={t("phonePlaceholder")}
             />
-            <FormField
-              control={control}
-              name="address"
-              label={t("address")}
-              placeholder={t("addressPlaceholder")}
-            />
+            <div className="flex flex-col gap-1.5">
+              <FormField
+                control={control}
+                name="address"
+                label={t("address")}
+                placeholder={t("addressPlaceholder")}
+              />
+              {familyAddress && familyAddress !== address && (
+                <Button
+                  type="button"
+                  variant="link"
+                  size="xs"
+                  className="self-start px-0"
+                  onClick={() => setValue("address", familyAddress, { shouldDirty: true })}
+                >
+                  <HomeIcon />
+                  {t("usarEnderecoFamilia")}
+                </Button>
+              )}
+            </div>
             <FormField
               control={control}
               name="memberType"
@@ -81,21 +101,34 @@ export function MemberForm({ control, onCancel, isSubmitting }: MemberFormProps)
               placeholder={t("memberStatusPlaceholder")}
             />
             <FormField control={control} name="joinedAt" label={t("joinedAt")} type="date" />
-            {isLoadingFamilies ? (
-              <div className="flex flex-col gap-2">
-                <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-9 w-full" />
-              </div>
-            ) : (
-              <FormField
-                control={control}
-                name="familyId"
-                label={t("family")}
-                type="select"
-                options={familyOptions}
-                placeholder={t("familyPlaceholder")}
-              />
-            )}
+            <Controller
+              control={control}
+              name="familyId"
+              render={({ field, fieldState }) => (
+                <Field data-invalid={!!fieldState.error} data-field-name="familyId">
+                  <FieldLabel htmlFor="familyId">{t("family")}</FieldLabel>
+                  <FamilyCombobox
+                    id="familyId"
+                    value={field.value ?? ""}
+                    onChange={(id) => {
+                      field.onChange(id);
+                      if (!id) setValue("familyRole", "none");
+                    }}
+                    onBlur={field.onBlur}
+                    invalid={!!fieldState.error}
+                  />
+                  <FieldError errors={[fieldState.error]} />
+                </Field>
+              )}
+            />
+            <FormField
+              control={control}
+              name="familyRole"
+              label={t("familyRole")}
+              type="select"
+              options={familyRoleOptions}
+              disabled={!familyId}
+            />
           </FormGrid>
           <FormField control={control} name="baptized" label={t("baptized")} type="checkbox" />
         </FormSection>

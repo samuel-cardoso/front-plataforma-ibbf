@@ -16,7 +16,8 @@ export function useMemberForm(t: (key: string) => string, member?: Member) {
       memberStatus: member?.memberStatus ?? "ACTIVE",
       joinedAt: member?.joinedAt ?? "",
       baptized: member?.baptized ?? false,
-      familyId: member?.familyId ?? "none",
+      familyId: member?.familyId ?? "",
+      familyRole: member?.familyRole ?? "none",
     },
   });
 }
