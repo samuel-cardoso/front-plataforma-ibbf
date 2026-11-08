@@ -295,6 +295,43 @@
     "papelCOUNTER": "Offering counter",
     "acessoAtualizado": "Access updated."
   },
+  "conteudo": {
+    "palavraELouvor": "Word and worship",
+    "biblia": "Bible",
+    "hinario": "Hymnal",
+    "canticos": "Songs",
+    "anterior": "Previous",
+    "proximo": "Next",
+    "aumentarFonte": "Larger text",
+    "diminuirFonte": "Smaller text"
+  },
+  "biblia": {
+    "titulo": "Bible",
+    "versao": "Version",
+    "livro": "Book",
+    "capitulo": "Chapter",
+    "capituloN": "Chapter {numero}",
+    "antigoTestamento": "Old Testament",
+    "novoTestamento": "New Testament",
+    "naoEncontrado": "Chapter not found."
+  },
+  "hinario": {
+    "titulo": "Hymnal",
+    "buscarPlaceholder": "Search by number, title or lyrics...",
+    "irParaNumero": "Open hymn {numero}",
+    "voltar": "Back to hymnal",
+    "numero": "Hymn {numero}",
+    "naoEncontrado": "Hymn not found."
+  },
+  "canticos": {
+    "titulo": "Songs",
+    "buscarPlaceholder": "Search by title or lyrics...",
+    "irParaNumero": "Open song {numero}",
+    "voltar": "Back to songs",
+    "numero": "Song {numero}",
+    "cantico": "Song",
+    "naoEncontrado": "Song not found."
+  },
   "termos": {
     "titulo": "Terms of Use",
     "ultimaAtualizacao": "Last updated: September 7, 2026",
@@ -440,6 +477,9 @@
     },
     "CASH_ACCOUNT": {
       "ALREADY_EXISTS": "An account with this name already exists."
+    },
+    "CONTENT": {
+      "UNAVAILABLE": "This content is unavailable right now. Please try again shortly."
     }
   }
 }

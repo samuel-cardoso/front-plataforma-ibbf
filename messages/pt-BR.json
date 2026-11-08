@@ -295,6 +295,43 @@
     "papelCOUNTER": "Contador de ofertas",
     "acessoAtualizado": "Acesso atualizado."
   },
+  "conteudo": {
+    "palavraELouvor": "Palavra e louvor",
+    "biblia": "Bíblia",
+    "hinario": "Hinário",
+    "canticos": "Cânticos",
+    "anterior": "Anterior",
+    "proximo": "Próximo",
+    "aumentarFonte": "Aumentar letra",
+    "diminuirFonte": "Diminuir letra"
+  },
+  "biblia": {
+    "titulo": "Bíblia",
+    "versao": "Versão",
+    "livro": "Livro",
+    "capitulo": "Capítulo",
+    "capituloN": "Capítulo {numero}",
+    "antigoTestamento": "Antigo Testamento",
+    "novoTestamento": "Novo Testamento",
+    "naoEncontrado": "Capítulo não encontrado."
+  },
+  "hinario": {
+    "titulo": "Hinário",
+    "buscarPlaceholder": "Buscar por número, título ou trecho da letra...",
+    "irParaNumero": "Abrir o hino {numero}",
+    "voltar": "Voltar ao hinário",
+    "numero": "Hino {numero}",
+    "naoEncontrado": "Hino não encontrado."
+  },
+  "canticos": {
+    "titulo": "Cânticos",
+    "buscarPlaceholder": "Buscar por título ou trecho da letra...",
+    "irParaNumero": "Abrir o cântico {numero}",
+    "voltar": "Voltar aos cânticos",
+    "numero": "Cântico {numero}",
+    "cantico": "Cântico",
+    "naoEncontrado": "Cântico não encontrado."
+  },
   "termos": {
     "titulo": "Termos de Uso",
     "ultimaAtualizacao": "Última atualização: 07 de setembro de 2026",
@@ -440,6 +477,9 @@
     },
     "CASH_ACCOUNT": {
       "ALREADY_EXISTS": "Já existe uma conta com este nome."
+    },
+    "CONTENT": {
+      "UNAVAILABLE": "Este conteúdo está indisponível no momento. Tente novamente em instantes."
     }
   }
 }

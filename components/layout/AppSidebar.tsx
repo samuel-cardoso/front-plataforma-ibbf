@@ -2,7 +2,7 @@
 
 import { usePathname, useTranslations, useFinanceMe } from "@/hooks";
 import Link from "next/link";
-import { Users, House, HeartHandshake, Wallet } from "lucide-react";
+import { Users, House, HeartHandshake, Wallet, BookOpen, Music, ListMusic } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -25,6 +25,7 @@ export function AppSidebar() {
   const tFamilias = useTranslations("familias");
   const tMinisterios = useTranslations("ministerios");
   const tFinanceiro = useTranslations("financeiro");
+  const tConteudo = useTranslations("conteudo");
   const finance = useFinanceMe();
 
   // Financeiro só aparece para quem tem papel financeiro (ou atribui papéis, que entra direto nas configurações).
@@ -37,6 +38,13 @@ export function AppSidebar() {
     ...(financeHref
       ? [{ href: financeHref, label: tFinanceiro("titulo"), icon: Wallet, match: paths.finance.dashboard }]
       : []),
+  ];
+
+  // Conteúdo de uso diário de toda a igreja: fica em destaque, separado da gestão.
+  const contentItems = [
+    { href: paths.bible, label: tConteudo("biblia"), icon: BookOpen },
+    { href: paths.hymns.list, label: tConteudo("hinario"), icon: Music },
+    { href: paths.canticles.list, label: tConteudo("canticos"), icon: ListMusic },
   ];
 
   return (
@@ -95,6 +103,30 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup className="mt-auto">
+          <div className="rounded-xl border border-primary/15 bg-primary/5 p-1 group-data-[collapsible=icon]:border-0 group-data-[collapsible=icon]:bg-transparent group-data-[collapsible=icon]:p-0">
+            <SidebarGroupLabel className="text-primary/80">{tConteudo("palavraELouvor")}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {contentItems.map((item) => (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      isActive={pathname.startsWith(item.href)}
+                      tooltip={item.label}
+                      className="hover:bg-primary/10 hover:text-primary data-active:bg-primary/15 data-active:text-primary"
+                      render={
+                        <Link href={item.href}>
+                          <item.icon />
+                          <span>{item.label}</span>
+                        </Link>
+                      }
+                    />
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </div>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>

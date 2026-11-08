@@ -23,6 +23,15 @@ export const paths = {
     edit: (id: string) => `/ministerios/${id}/editar`,
     members: (id: string) => `/ministerios/${id}/membros`,
   },
+  bible: "/biblia",
+  hymns: {
+    list: "/hinario",
+    detail: (id: number) => `/hinario/${id}`,
+  },
+  canticles: {
+    list: "/canticos",
+    detail: (id: number) => `/canticos/${id}`,
+  },
   finance: {
     dashboard: "/financeiro",
     transactions: "/financeiro/lancamentos",
