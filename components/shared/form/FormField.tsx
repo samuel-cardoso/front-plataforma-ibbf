@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 import { DatePicker } from "./DatePicker";
 import { maskCpf, maskPhone } from "@/lib/utils/format/mask";
+import { maskMoney } from "@/lib/utils/format/money";
 import {
   Select,
   SelectContent,
@@ -27,11 +28,12 @@ type FormFieldType =
   | "select"
   | "checkbox";
 
-type FormFieldMask = "cpf" | "phone";
+type FormFieldMask = "cpf" | "phone" | "money";
 
 const MASKS: Record<FormFieldMask, (value: string) => string> = {
   cpf: maskCpf,
   phone: maskPhone,
+  money: maskMoney,
 };
 
 type FormFieldProps<TFieldValues extends FieldValues> = {

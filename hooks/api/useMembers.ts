@@ -8,10 +8,11 @@ export const memberKeys = {
   detail: (id: string) => [...memberKeys.all, "detail", id] as const,
 };
 
-export function useMembers(params: MemberListParams = {}) {
+export function useMembers(params: MemberListParams = {}, enabled = true) {
   const query = useQuery({
     queryKey: memberKeys.list(params),
     queryFn: () => endpoints.listMembers(params),
+    enabled,
   });
 
   return {

@@ -19,6 +19,10 @@ type ConfirmDeleteDialogProps = {
   isDeleting?: boolean;
   title?: string;
   description?: string;
+  /** Para confirmações que não são exclusão (ex.: fechar o mês). */
+  confirmLabel?: string;
+  pendingLabel?: string;
+  variant?: "destructive" | "default";
 };
 
 export function ConfirmDeleteDialog({
@@ -28,6 +32,9 @@ export function ConfirmDeleteDialog({
   isDeleting,
   title,
   description,
+  confirmLabel,
+  pendingLabel,
+  variant = "destructive",
 }: ConfirmDeleteDialogProps) {
   const t = useTranslations("comum");
 
@@ -42,8 +49,8 @@ export function ConfirmDeleteDialog({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isDeleting}>{t("cancelar")}</AlertDialogCancel>
-          <AlertDialogAction variant="destructive" disabled={isDeleting} onClick={onConfirm}>
-            {isDeleting ? t("excluindo") : t("excluir")}
+          <AlertDialogAction variant={variant} disabled={isDeleting} onClick={onConfirm}>
+            {isDeleting ? (pendingLabel ?? t("excluindo")) : (confirmLabel ?? t("excluir"))}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
