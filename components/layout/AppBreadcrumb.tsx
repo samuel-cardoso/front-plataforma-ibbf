@@ -17,6 +17,7 @@ export function AppBreadcrumb() {
   const tMembros = useTranslations("membros");
   const tFamilias = useTranslations("familias");
   const tMinisterios = useTranslations("ministerios");
+  const tFinanceiro = useTranslations("financeiro");
 
   const segments = pathname.split("/").filter(Boolean);
   const [section, ...rest] = segments;
@@ -25,7 +26,14 @@ export function AppBreadcrumb() {
     membros: { label: tMembros("titulo"), href: paths.members.list },
     familias: { label: tFamilias("titulo"), href: paths.families.list },
     ministerios: { label: tMinisterios("titulo"), href: paths.ministries.list },
+    financeiro: { label: tFinanceiro("titulo"), href: paths.finance.dashboard },
   } as const;
+
+  const financePages: Record<string, string> = {
+    lancamentos: tFinanceiro("lancamentos"),
+    fechamento: tFinanceiro("fechamento"),
+    configuracoes: tFinanceiro("configuracoes"),
+  };
 
   const current = sections[section as keyof typeof sections];
 
@@ -35,6 +43,7 @@ export function AppBreadcrumb() {
 
   const page = (() => {
     if (rest.length === 0) return null;
+    if (section === "financeiro") return financePages[rest[0]] ?? null;
     if (rest[0] === "novo") {
       return section === "membros"
         ? tMembros("novoMembro")

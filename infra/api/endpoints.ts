@@ -1,4 +1,4 @@
-import { authService, memberService, familyService, ministryService } from "./services";
+import { authService, memberService, familyService, ministryService, financeService } from "./services";
 
 /**
  * Fachada única consumida pelos hooks de API. Hooks nunca chamam `services`
@@ -36,4 +36,26 @@ export const endpoints = {
   addMinistryParticipation: ministryService.addParticipation,
   updateMinistryParticipationRole: ministryService.updateParticipationRole,
   removeMinistryParticipation: ministryService.removeParticipation,
+
+  getFinanceMe: financeService.me,
+  listFinanceUsers: financeService.listUsers,
+  assignFinanceRole: financeService.assignRole,
+  revokeFinanceRole: financeService.revokeRole,
+  listFunds: financeService.listFunds,
+  createFund: financeService.createFund,
+  updateFund: financeService.updateFund,
+  listFinanceCategories: financeService.listCategories,
+  createFinanceCategory: financeService.createCategory,
+  updateFinanceCategory: financeService.updateCategory,
+  listCashAccounts: financeService.listAccounts,
+  createCashAccount: financeService.createAccount,
+  updateCashAccount: financeService.updateAccount,
+  listFinanceTransactions: financeService.listTransactions,
+  createFinanceTransaction: financeService.createTransaction,
+  createFinanceTransfer: financeService.createTransfer,
+  reverseFinanceTransaction: financeService.reverseTransaction,
+  getFinanceSummary: financeService.getSummary,
+  listFinancePeriods: financeService.listPeriods,
+  closeFinancePeriod: financeService.closePeriod,
+  reopenFinancePeriod: financeService.reopenPeriod,
 };

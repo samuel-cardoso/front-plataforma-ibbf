@@ -1,8 +1,8 @@
 "use client";
 
-import { usePathname, useTranslations } from "@/hooks";
+import { usePathname, useTranslations, useFinanceMe } from "@/hooks";
 import Link from "next/link";
-import { Users, House, HeartHandshake } from "lucide-react";
+import { Users, House, HeartHandshake, Wallet } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -24,11 +24,19 @@ export function AppSidebar() {
   const tMembros = useTranslations("membros");
   const tFamilias = useTranslations("familias");
   const tMinisterios = useTranslations("ministerios");
+  const tFinanceiro = useTranslations("financeiro");
+  const finance = useFinanceMe();
+
+  // Financeiro só aparece para quem tem papel financeiro (ou atribui papéis, que entra direto nas configurações).
+  const financeHref = finance.canRead ? paths.finance.dashboard : finance.canManageRoles ? paths.finance.settings : null;
 
   const items = [
-    { href: paths.members.list, label: tMembros("titulo"), icon: Users },
-    { href: paths.families.list, label: tFamilias("titulo"), icon: House },
-    { href: paths.ministries.list, label: tMinisterios("titulo"), icon: HeartHandshake },
+    { href: paths.members.list, label: tMembros("titulo"), icon: Users, match: paths.members.list },
+    { href: paths.families.list, label: tFamilias("titulo"), icon: House, match: paths.families.list },
+    { href: paths.ministries.list, label: tMinisterios("titulo"), icon: HeartHandshake, match: paths.ministries.list },
+    ...(financeHref
+      ? [{ href: financeHref, label: tFinanceiro("titulo"), icon: Wallet, match: paths.finance.dashboard }]
+      : []),
   ];
 
   return (
@@ -73,7 +81,7 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
-                    isActive={pathname.startsWith(item.href)}
+                    isActive={pathname.startsWith(item.match)}
                     tooltip={item.label}
                     className="hover:bg-primary/10 hover:text-primary data-active:bg-primary/10 data-active:text-primary"
                     render={

@@ -10,3 +10,4 @@ export * from "./useMembers";
 export * from "./useFamilies";
 export * from "./useMinistries";
 export * from "./useMinistryMembers";
+export * from "./useFinance";

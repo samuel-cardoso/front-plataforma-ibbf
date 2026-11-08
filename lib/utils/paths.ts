@@ -23,4 +23,10 @@ export const paths = {
     edit: (id: string) => `/ministerios/${id}/editar`,
     members: (id: string) => `/ministerios/${id}/membros`,
   },
+  finance: {
+    dashboard: "/financeiro",
+    transactions: "/financeiro/lancamentos",
+    periods: "/financeiro/fechamento",
+    settings: "/financeiro/configuracoes",
+  },
 };

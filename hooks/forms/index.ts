@@ -7,3 +7,4 @@ export * from "./useMemberForm";
 export * from "./useFamilyForm";
 export * from "./useMinistryForm";
 export * from "./useMinistryMemberForm";
+export * from "./useFinanceForms";
